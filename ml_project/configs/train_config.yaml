@@ -1,5 +1,5 @@
 input_data_path: "../data/heart.csv"
-output_model_path: "../models/model.pkl"
+model_path: "../models/model.pkl"
 metric_path: "../models/metrics.json"
 splitting_params:
   val_size: 0.1
@@ -29,5 +29,4 @@ feature_params:
   sq_features:
     - "age"
   target_col: "target"
-metric_params:
-  metric_name: "roc_auc_score"
+

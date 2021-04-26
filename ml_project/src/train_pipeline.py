@@ -43,7 +43,7 @@ def setup_parser():
     )
     parser.add_argument(
         "-m", "--mode",
-        help="select train or test",
+        help="select train or predict",
         dest="mode",
         default=DEFAULT_MODE,
     )
@@ -66,17 +66,17 @@ def train_pipeline(training_pipeline_params: TrainingPipelineParams, mode: str):
         model = train(train_features, train_target, training_pipeline_params.train_params)
         logger.debug('Training completed')
         try:
-            dump_model(model, training_pipeline_params.output_model_path)
-            logger.info(f'Model dump: {training_pipeline_params.output_model_path}')
+            dump_model(model, training_pipeline_params.model_path)
+            logger.info(f'Model dump: {training_pipeline_params.model_path}')
         except FileNotFoundError:
-            logger.warning(f'Can not dump model: {training_pipeline_params.output_model_path}')
+            logger.warning(f'Can not dump model: {training_pipeline_params.model_path}')
     else:
         logger.debug('Start load model')
         try:
-            model = load_model(training_pipeline_params.output_model_path)
-            logger.info(f'Model uploaded with: {training_pipeline_params.output_model_path}')
+            model = load_model(training_pipeline_params.model_path)
+            logger.info(f'Model uploaded with: {training_pipeline_params.model_path}')
         except FileNotFoundError:
-            logger.warning(f'Can not load model: {training_pipeline_params.output_model_path}')
+            logger.warning(f'Can not load model: {training_pipeline_params.model_path}')
             return None, None, None
     if mode == DEFAULT_MODE or mode == PREDICT_MODE:
         predict_target = predict(model, test_features)

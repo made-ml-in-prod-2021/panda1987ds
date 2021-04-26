@@ -12,7 +12,7 @@ import models.fit_predict as fit_predict
 
 
 @pytest.fixture()
-def output_model_path_test(tmpdir):
+def model_path_test(tmpdir):
     return str(tmpdir+'/model')
 
 
@@ -29,13 +29,13 @@ def input_data_path_test(tmpdir, random_df):
 
 
 @pytest.fixture()
-def params_yaml_test(metric_path_test, output_model_path_test, input_data_path_test):
+def params_yaml_test(metric_path_test, model_path_test, input_data_path_test):
     feature_params = {'categorical_features': ['sex', 'cp'], 'numerical_features': ['age'],
                       'target_col': 'target', 'sq_features': ['age']}
     splitting_params = {'val_size': 0.1, 'random_state': 42}
     metric_params = {'metric_name': 'roc_auc_score'}
     training_params = {'model_type': 'LogisticRegression'}
-    return {'input_data_path': input_data_path_test, 'output_model_path': output_model_path_test,
+    return {'input_data_path': input_data_path_test, 'model_path': model_path_test,
             'metric_path': metric_path_test,
             'feature_params': feature_params, 'train_params': training_params,
             'metric_params': metric_params, 'splitting_params': splitting_params}
