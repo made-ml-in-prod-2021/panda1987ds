@@ -11,7 +11,7 @@ configs/train_config.yaml")
     
     Пример:
     
-        python src/train_pipeline.py -с python ../configs/train_config_NB.yaml
+        python src/train_pipeline.py -с ../configs/train_config_NB.yaml
     
 *  **"-m", "--mode"** - режим работы train или predict 
 По умолчанию выполняются оба этапа, модель сначала учиться затем выполняется предсказание и считаются метрики.
