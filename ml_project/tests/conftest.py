@@ -1,10 +1,11 @@
-from numpy.random import randint
+from numpy.random import randint, normal
 import pytest
 import pandas as pd
 import sys, os
 import yaml
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'src')))
+os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'src')))
 
 import configs.load_params as load_params
 import features.build_features as build_features
@@ -13,12 +14,12 @@ import models.fit_predict as fit_predict
 
 @pytest.fixture()
 def model_path_test(tmpdir):
-    return str(tmpdir+'/model')
+    return str(tmpdir + '/model')
 
 
 @pytest.fixture()
 def metric_path_test(tmpdir):
-    return str(tmpdir+'/metric')
+    return str(tmpdir + '/metric')
 
 
 @pytest.fixture()
@@ -30,15 +31,15 @@ def input_data_path_test(tmpdir, random_df):
 
 @pytest.fixture()
 def params_yaml_test(metric_path_test, model_path_test, input_data_path_test):
-    feature_params = {'categorical_features': ['sex', 'cp'], 'numerical_features': ['age'],
+    feature_params = {'categorical_features': ['cp', 'sex', 'fbs', 'restecg', 'exang', 'slope', 'ca', 'thal'],
+                      'numerical_features': ['age', 'trestbps', 'chol', 'thalach', 'oldpeak'],
                       'target_col': 'target', 'sq_features': ['age']}
     splitting_params = {'val_size': 0.1, 'random_state': 42}
-    metric_params = {'metric_name': 'roc_auc_score'}
     training_params = {'model_type': 'LogisticRegression'}
     return {'input_data_path': input_data_path_test, 'model_path': model_path_test,
             'metric_path': metric_path_test,
             'feature_params': feature_params, 'train_params': training_params,
-            'metric_params': metric_params, 'splitting_params': splitting_params}
+            'splitting_params': splitting_params}
 
 
 @pytest.fixture()
@@ -61,12 +62,29 @@ def size_df():
 
 @pytest.fixture()
 def categorical_features(size_df) -> dict:
-    return {'sex': randint(0, 2, size_df), 'cp': randint(0, 4, size_df)}
+    return {
+        'cp': randint(0, 4, size_df),
+        'sex': randint(0, 2, size_df),
+        'fbs': randint(0, 2, size_df),
+        'restecg': randint(0, 2, size_df),
+        'exang': randint(0, 2, size_df),
+        'slope': randint(0, 3, size_df),
+        'ca': randint(0, 5, size_df),
+        'thal': randint(1, 4, size_df)
+    }
 
 
 @pytest.fixture()
 def numeric_features(size_df) -> dict:
-    return {'age': randint(29, 75, size_df)}
+    oldpeak = normal(0, 2, size_df).round(2)
+    oldpeak[oldpeak < 0] = 0
+    return {
+        'age': normal(54, 9, size_df).astype(int),
+        'trestbps': normal(132, 17, size_df).astype(int),
+        'chol': normal(246, 52, size_df).astype(int),
+        'thalach': normal(150, 23, size_df).astype(int),
+        'oldpeak': oldpeak
+    }
 
 
 @pytest.fixture()

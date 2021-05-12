@@ -6,8 +6,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
 import numpy as np
+import logging.config
 
 from configs.load_params import FeatureParams
+
+logging.config.fileConfig('../configs/logging.ini', disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 
 
 class SquaringTransformer(BaseEstimator, TransformerMixin):
@@ -59,13 +63,16 @@ def build_sq_pipeline() -> Pipeline:
 
 
 def make_features(transformer: ColumnTransformer, df: pd.DataFrame, transform_only: bool = False) -> pd.DataFrame:
+    logger.debug(f'Start make features transform_only = {transform_only}')
     if transform_only:
         return pd.DataFrame(transformer.transform(df))
     else:
         return pd.DataFrame(transformer.fit_transform(df))
+    logger.debug('End make features')
 
 
 def build_transformer(params: FeatureParams) -> ColumnTransformer:
+    logger.debug('Start build transform')
     transformer_list = [
         (
             "categorical_pipeline",
@@ -87,6 +94,7 @@ def build_transformer(params: FeatureParams) -> ColumnTransformer:
             ))
 
     transformer = ColumnTransformer(transformer_list)
+    logger.debug('End build transform')
     return transformer
 
 
