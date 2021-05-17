@@ -2,10 +2,13 @@
 
     docker pull panda1987ds/online_inference
 
+###**Сборка**:
+
+     docker build . -t panda1987ds/online_inference:v0.1
+
 ###**Запуск**:
 
     docker run -p 8080:8080 panda1987ds/online_inference
-
 ### **Тесты:**
     pytest tests/
 
