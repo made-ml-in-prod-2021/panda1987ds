@@ -10,7 +10,7 @@
     pytest tests/
 
 ### Структура:
-    |- ml_project
+    |- online_inference
         |- configs                  <- файлы конфигурации параметров YAML
         |- data                     <- файл данных
         |- logs                     <- логи работы программы
