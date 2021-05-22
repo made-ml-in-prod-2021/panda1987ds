@@ -1,0 +1,31 @@
+[
+        {
+            "sex": 0,
+            "cp": 0,
+            "fbs": 0,
+            "restecg": 1,
+            "exang": 0,
+            "slope": 2,
+            "ca": 1,
+            "thal": 3,
+            "age": 40,
+            "trestbps": 120,
+            "chol": 240,
+            "thalach": 150,
+            "oldpeak": 0
+        }, {
+            "sex": 1,
+            "cp": 1,
+            "fbs": 0,
+            "restecg": 1,
+            "exang": 0,
+            "slope": 2,
+            "ca": 1,
+            "thal": 2,
+            "age": 78,
+            "trestbps": 120,
+            "chol": 240,
+            "thalach": 150,
+            "oldpeak": 0
+        }
+    ]
