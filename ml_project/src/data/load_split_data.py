@@ -19,7 +19,6 @@ def read_data(path: str) -> pd.DataFrame:
         logger.error(f'Data file not found {path}')
 
 
-
 def split_train_test_data(data: pd.DataFrame, params: SplittingParams) -> Tuple[pd.DataFrame, pd.DataFrame]:
     train_data, test_data = train_test_split(
         data, test_size=params.val_size, random_state=params.random_state
