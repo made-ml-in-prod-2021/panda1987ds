@@ -19,7 +19,7 @@ spec:
         name: online-inference
     spec:
         containers:
-            -   image: panda1987ds/online_inference:v0.1
+            -   image: panda1987ds/online_inference:v2
                 resources:
                     requests:
                         memory: "64Mi"
