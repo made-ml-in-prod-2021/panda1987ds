@@ -6,7 +6,7 @@ metadata:
         app: online-inference
 spec:
     containers:
-        -   image: panda1987ds/online_inference:v0.2
+        -   image: panda1987ds/online_inference:v0.1
             resources:
                 requests:
                     memory: "64Mi"
@@ -16,13 +16,13 @@ spec:
                     cpu: "500m"
             livenessProbe:
                 httpGet:
-                    path: /health
+                    path: /touch
                     port: 8080
                 initialDelaySeconds: 10
                 periodSeconds: 5
             readinessProbe:
                 httpGet:
-                    path: /health
+                    path: /touch
                     port: 8080
                 initialDelaySeconds: 10
                 periodSeconds: 5
