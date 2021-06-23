@@ -68,5 +68,6 @@ def main():
     load_model()
     uvicorn.run(app, host=IP, port=PORT)
 
+
 if __name__ == "__main__":
     main()

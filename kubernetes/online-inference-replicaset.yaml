@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: online-inference
+  labels:
+    name: online-inference
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: online-inference
+  template:
+    metadata:
+      labels:
+        name: online-inference
+    spec:
+        containers:
+            -   image: panda1987ds/online_inference:v2
+                resources:
+                    requests:
+                        memory: "64Mi"
+                        cpu: "250m"
+                    limits:
+                        memory: "128Mi"
+                        cpu: "500m"
+                livenessProbe:
+                    httpGet:
+                        path: /touch
+                        port: 8080
+                    initialDelaySeconds: 10
+                    periodSeconds: 5
+                readinessProbe:
+                    httpGet:
+                        path: /touch
+                        port: 8080
+                    initialDelaySeconds: 10
+                    periodSeconds: 5
+                name: online-inference
+                ports:
+                    -   containerPort: 8080
